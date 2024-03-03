@@ -22,9 +22,10 @@ class Snake extends Game {
 	CreateElements elem = new CreateElements();
 	
 	class CreateElements {
-		// Add snake creation here (for now its just another fruit so other methods work)
-		Point[] fruitPoints = { new Point(0, 0), new Point(400, 0), new Point(400, 400), new Point(0, 400)};
-		Orange tester = new Orange(fruitPoints, new Point(100,0), 0.0);
+		
+		//snakehead
+		Point[] snakeHeadPoints = { new Point(0, 25), new Point(12, 0), new Point(25, 25)};
+		SnakeHead snakeHead = new SnakeHead(snakeHeadPoints, new Point(350,250), 20.0);
 		
 		// ArrayList of fruits
 		private ArrayList<Fruit> fruits = new ArrayList<>();
@@ -56,7 +57,10 @@ class Snake extends Game {
 		super("Snake!", 800, 600);
 		this.setFocusable(true);
 		this.requestFocus();
-
+		
+		//keylistener
+		this.addKeyListener(elem.snakeHead);
+		
 		// Delay displaying of fruits by 3 seconds at the start
 		int delay = 3000;
 		// 10 second interval between generating fruits
@@ -85,9 +89,14 @@ class Snake extends Game {
 		while (fruitIterator.hasNext()) {
 			Fruit fruit = fruitIterator.next();
 			// is it weird to cast this
-			if (elem.tester.collides((Polygon) fruit)) {  // change tester to snakeHead
+			if (elem.snakeHead.collides((Polygon) fruit)) {
+				if(fruit.getClass() == Orange.class) {
+					elem.snakeHead.levelUp(1);
+				}
+				if(fruit.getClass() == Apple.class) {
+					elem.snakeHead.levelUp(2);
+				}
 				fruitIterator.remove();
-				//tester.grow(); // have to create grow method for snake
 				break;
 			}
 		}
@@ -95,7 +104,8 @@ class Snake extends Game {
 	
 	public void checkWallCollisions() {
 		// change tester to snakeHead
-		if (elem.tester.collides(elem.wallTop) || elem.tester.collides(elem.wallBottom) || elem.tester.collides(elem.wallLeft) || elem.tester.collides(elem.wallRight)) {
+		if (elem.snakeHead.collides(elem.wallTop) || elem.snakeHead.collides(elem.wallBottom) 
+				|| elem.snakeHead.collides(elem.wallLeft) || elem.snakeHead.collides(elem.wallRight)) {
 			// End game if snake collides
 			JOptionPane.showMessageDialog(null, "Game Over!");
 			System.exit(0);
@@ -114,9 +124,10 @@ class Snake extends Game {
 		elem.wallLeft.paint(brush);
 		elem.wallRight.paint(brush);
 		
-		// The below two lines make a random tester object to test collision methods in place of snake
-		//brush.setColor(Color.orange);
-		//elem.tester.paint(brush);
+		// Snake head movement
+		elem.snakeHead.move();
+		brush.setColor(Color.green);
+		elem.snakeHead.Paint(brush);
 		
 		// Periodically draw fruits
 		for (Fruit fruit : elem.fruits) {
@@ -133,8 +144,8 @@ class Snake extends Game {
 		// Collision logic - done
 		
 		// Uncomment these two lines when snake is implemented
-		//checkFruitCollisionsAndGrowSnake();
-		//checkWallCollisions();
+		checkFruitCollisionsAndGrowSnake();
+		checkWallCollisions();
 
 		// sample code for printing message for debugging
 		// counter is incremented and this message printed
