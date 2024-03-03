@@ -57,6 +57,24 @@ class Polygon {
     return points;
   }
   
+  public boolean collides(Polygon other) {
+	  // Check if any of this polygon's points are inside other polygon
+	  for (Point point : this.getPoints()) {
+		  if (other.contains(point)) {
+			  return true;
+		  }
+	  }
+	  // Check if any of the other polygon's points are inside this polygon
+	  for (Point point : other.getPoints()) {
+		  if (this.contains(point)) {
+			  return true;
+		  }
+	  }
+	  
+	  // Return false if no points overlap
+	  return false;
+  }
+  
   // "contains" implements some magical math (i.e. the ray-casting algorithm).
   public boolean contains(Point point) {
     Point[] points = getPoints();
@@ -101,4 +119,5 @@ class Polygon {
     double area = findArea();
     return new Point(Math.abs(sum.x/(6*area)),Math.abs(sum.y/(6*area)));
   }
+  
 }

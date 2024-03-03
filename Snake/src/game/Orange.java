@@ -2,9 +2,9 @@ package game;
 
 import java.awt.Graphics;
 
-public class Wall extends Polygon{
+public class Orange extends Polygon implements Fruit{
 
-	public Wall(Point[] inShape, Point inPosition, double inRotation) {
+	public Orange(Point[] inShape, Point inPosition, double inRotation) {
 		super(inShape, inPosition, inRotation);
 	}
 
