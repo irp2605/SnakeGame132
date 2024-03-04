@@ -5,11 +5,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-<<<<<<< HEAD
-public class SnakeHead extends Polygon implements KeyListener{
-	private double ammountToMove = 0.5;
-	private double ammountToRotate = 1;
-=======
 /**
  * This class extends Polygon and implements KeyListener. It is responsible for
  * representing the SnakeHead object. It contains methods to draw and move the
@@ -18,10 +13,9 @@ public class SnakeHead extends Polygon implements KeyListener{
  * @author Aditri Gadigi and Ishan Patel
  */
 
-public class SnakeHead extends Polygon implements KeyListener {
-	private int ammountToMove = 1;
-	private int ammountToRotate = 2;
->>>>>>> branch 'master' of https://github.com/irp2605/SnakeGame132.git
+public class SnakeHead extends Polygon implements KeyListener{
+	private double ammountToMove = 0.5;
+	private double ammountToRotate = 1;
 	private boolean forward, left, right;
 
 	/**

@@ -40,19 +40,14 @@ class Snake extends Game {
 	 * @author Aditri Gadigi and Ishan Patel
 	 */
 	class CreateElements {
-<<<<<<< HEAD
+
 		
 		//snakehead
 		Point[] snakeHeadPoints = { new Point(0, 25), new Point(12, 0), new Point(25, 25)};
 		SnakeHead snakeHead = new SnakeHead(snakeHeadPoints, new Point(150,250), 90.0);
 		
-=======
 
-		// SnakeHead
-		Point[] snakeHeadPoints = { new Point(0, 25), new Point(12, 0), new Point(25, 25) };
-		SnakeHead snakeHead = new SnakeHead(snakeHeadPoints, new Point(350, 250), 20.0);
 
->>>>>>> branch 'master' of https://github.com/irp2605/SnakeGame132.git
 		// ArrayList of fruits
 		
 		private Random random = new Random();
@@ -71,7 +66,6 @@ class Snake extends Game {
 		// Left wall
 		private Wall wallLeft = new Wall(wallHortPoints, new Point(5, height / 4), 0.0);
 		// Right wall
-<<<<<<< HEAD
 		private Wall wallRight = new Wall(wallHortPoints, new Point(width - 45, height/4), 0.0);
 		
 		// Apple apple = new Apple(fruitPoints, new Point(200,200), 0.0);
@@ -96,9 +90,7 @@ class Snake extends Game {
 					}
 				};
 		ArrayList<Fruit> fruits = new ArrayList<Fruit>(Arrays.asList(startFruit));
-=======
-		private Wall wallRight = new Wall(wallHortPoints, new Point(width - 45, height / 4), 0.0);
->>>>>>> branch 'master' of https://github.com/irp2605/SnakeGame132.git
+
 
 	}
 
@@ -171,25 +163,18 @@ class Snake extends Game {
 					if (fruit.getClass() == Orange.class) {
 						elem.snakeHead.levelUp(1);
 					}
-					if (fruit.getClass() == Apple.class) {
-						elem.snakeHead.levelUp(2);
+					else if(fruit.getClass() == Apple.class) {
+						Polygon p =(Polygon)((Apple)fruit);
+						if(p.getPoints().length == 5) {
+							elem.snakeHead.levelUp(2);	
+						}
+						else {
+							elem.snakeHead.levelUp(3);
+						}
 					}
 					fruitIterator.remove();
 					break;
 				}
-<<<<<<< HEAD
-				else if(fruit.getClass() == Apple.class) {
-					Polygon p =(Polygon)((Apple)fruit);
-					if(p.getPoints().length == 5) {
-						elem.snakeHead.levelUp(2);	
-					}
-					else {
-						elem.snakeHead.levelUp(3);
-					}
-				}
-				fruitIterator.remove();
-				break;
-=======
 			}
 		}
 
@@ -206,7 +191,6 @@ class Snake extends Game {
 				// End game if snake collides
 				JOptionPane.showMessageDialog(null, "Game Over!");
 				System.exit(0);
->>>>>>> branch 'master' of https://github.com/irp2605/SnakeGame132.git
 			}
 		}
 	}
@@ -235,7 +219,7 @@ class Snake extends Game {
 
 		// Periodically draw fruits
 		for (Fruit fruit : elem.fruits) {
-<<<<<<< HEAD
+
 			// Pick fruit color based on fruit type
 			if (fruit instanceof Apple) {
 				Polygon p =(Polygon)((Apple)fruit);
@@ -250,8 +234,6 @@ class Snake extends Game {
 			}
 			// Draw fruit
 			System.out.println(((Polygon)fruit).position.x + ", " + ((Polygon)fruit).position.y);
-=======
->>>>>>> branch 'master' of https://github.com/irp2605/SnakeGame132.git
 			fruit.paint(brush);
 		}
 
