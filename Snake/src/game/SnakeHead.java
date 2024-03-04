@@ -6,8 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class SnakeHead extends Polygon implements KeyListener{
-	private int ammountToMove = 1;
-	private int ammountToRotate = 2;
+	private double ammountToMove = 0.5;
+	private double ammountToRotate = 1;
 	private boolean forward, left, right;
 	
 	public SnakeHead(Point[] inShape, Point inPosition, double inRotation) {
