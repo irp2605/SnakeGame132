@@ -55,7 +55,13 @@ public class SnakeHead extends Polygon implements KeyListener{
 		brush.fillPolygon(xPoints, yPoints, nPoints);
 
 	}
-
+	
+	/**
+	 * Moves the Snakehead object. Uses a combination of the given ammountToMove and angle manipulation
+	 * with trig to move the x and y coordinates by the correct amount to move forward. Additionally
+	 * rotates the Snakehead by ammountToRotate degrees when the left or right keys are pressed respectively
+	 * 
+	 */
 	public void move() {
 		if (forward) {
 			// reliant on trig to move in the direction the direction its rotated to
@@ -70,10 +76,16 @@ public class SnakeHead extends Polygon implements KeyListener{
 			super.rotation += ammountToRotate;
 		}
 	}
-
+	
+	/**
+	 * Speeds the snakes forward movement and rotation speed up by, in the first case, the fruit mult
+	 * or, in the second, a multiple of it.
+	 * 
+	 * @param fruitMult
+	 */
 	public void levelUp(int fruitMult) {
-		ammountToMove += fruitMult;
-		ammountToRotate *= (1.5 * fruitMult);
+		ammountToMove += fruitMult/2.0;
+		ammountToRotate *= (1.25 * fruitMult);
 	}
 
 	@Override
@@ -81,7 +93,13 @@ public class SnakeHead extends Polygon implements KeyListener{
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	/**
+	 * Permanently begins to move the Snakehead forward when up is pressed, temporarily begins to rotate
+	 * it when left or right are pressed based on the keycode of e.
+	 * 
+	 * @param e
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// move forward
@@ -98,7 +116,13 @@ public class SnakeHead extends Polygon implements KeyListener{
 		}
 
 	}
-
+	
+	/**
+	 * Stops the rotation of the Snakehead when left or right are released based on the keycode
+	 * of e.
+	 * 
+	 * @param e
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// no key released for forward so user cant stop when started

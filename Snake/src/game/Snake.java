@@ -153,7 +153,7 @@ class Snake extends Game {
 				if (elem.snakeHead.collides((Polygon) fruit)) {
 					if (fruit.getClass() == Orange.class) {
 						elem.snakeHead.levelUp(1);
-					} else if (fruit.getClass() == Apple.class) {
+					} else if (fruit instanceof Apple) {
 						Polygon p = (Polygon) ((Apple) fruit);
 						if (p.getPoints().length == 5) {
 							elem.snakeHead.levelUp(2);
@@ -212,6 +212,7 @@ class Snake extends Game {
 			// Pick fruit color based on fruit type
 			if (fruit instanceof Apple) {
 				Polygon p = (Polygon) ((Apple) fruit);
+				
 				if (p.getPoints().length == 5) {
 					brush.setColor(Color.pink);
 				} else {
@@ -221,7 +222,6 @@ class Snake extends Game {
 				brush.setColor(Color.orange);
 			}
 			// Draw fruit
-			System.out.println(((Polygon) fruit).position.x + ", " + ((Polygon) fruit).position.y);
 			fruit.paint(brush);
 		}
 
