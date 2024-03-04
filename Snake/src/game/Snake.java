@@ -41,15 +41,9 @@ class Snake extends Game {
 	 */
 	class CreateElements {
 
-		
-		//snakehead
-		Point[] snakeHeadPoints = { new Point(0, 25), new Point(12, 0), new Point(25, 25)};
-		SnakeHead snakeHead = new SnakeHead(snakeHeadPoints, new Point(150,250), 90.0);
-		
-
-
-		// ArrayList of fruits
-		
+		// Snake head
+		Point[] snakeHeadPoints = { new Point(0, 25), new Point(12, 0), new Point(25, 25) };
+		SnakeHead snakeHead = new SnakeHead(snakeHeadPoints, new Point(150, 250), 90.0);
 		private Random random = new Random();
 
 		// Vertical points
@@ -66,31 +60,29 @@ class Snake extends Game {
 		// Left wall
 		private Wall wallLeft = new Wall(wallHortPoints, new Point(5, height / 4), 0.0);
 		// Right wall
-		private Wall wallRight = new Wall(wallHortPoints, new Point(width - 45, height/4), 0.0);
-		
-		// Apple apple = new Apple(fruitPoints, new Point(200,200), 0.0);
-		
-		// start fruit
-		// Generate random x and y coordinates for fruit
-		int x = 400;
-				int y = 300;
-				Point[] fruitPoints = { new Point(0, 0), new Point(10, 10), new Point(20, 0), new Point(20, 20), new Point(0, 20) };
-				// using an anonymous class to make a special starting fruit
-				
-				Apple startFruit = new Apple(fruitPoints, new Point(x, y), 0) {
-					public void paint(Graphics brush) {
-						int nPoints = 5;
-						int[] xPoints = new int[nPoints];
-						int[] yPoints = new int[nPoints];
-						for (int i = 0; i < nPoints; i++) {
-							xPoints[i] = (int) fruitPoints[i].getX();
-							yPoints[i] = (int) fruitPoints[i].getY();
-						}
-						brush.fillPolygon(xPoints, yPoints, nPoints);
-					}
-				};
-		ArrayList<Fruit> fruits = new ArrayList<Fruit>(Arrays.asList(startFruit));
+		private Wall wallRight = new Wall(wallHortPoints, new Point(width - 45, height / 4), 0.0);
 
+		// Start fruit
+		int x = 100;
+		int y = 100;
+		Point[] fruitPoints = { new Point(14, 5), new Point(8, 11), new Point(5, 17), new Point(23, 17),
+				new Point(20, 11) };
+		// Using an anonymous class to make a special starting fruit
+		Apple startFruit = new Apple(fruitPoints, new Point(x,y), 0.0) {
+			public void paint(Graphics brush) {
+				int nPoints = 5;
+				int[] xPoints = new int[nPoints];
+				int[] yPoints = new int[nPoints];
+				for (int i = 0; i < nPoints; i++) {
+					xPoints[i] = (int) fruitPoints[i].getX();
+					xPoints[i] += this.position.x;
+					yPoints[i] = (int) fruitPoints[i].getY();
+					yPoints[i] += this.position.y;
+				}
+				brush.fillPolygon(xPoints, yPoints, nPoints);
+			}
+		};
+		ArrayList<Fruit> fruits = new ArrayList<Fruit>(Arrays.asList(startFruit));
 
 	}
 
@@ -113,8 +105,7 @@ class Snake extends Game {
 
 		// Lambda expression
 		new Timer(period, e -> addRandomFruit()).start();
-		
-		
+
 	}
 
 	/**
@@ -162,13 +153,11 @@ class Snake extends Game {
 				if (elem.snakeHead.collides((Polygon) fruit)) {
 					if (fruit.getClass() == Orange.class) {
 						elem.snakeHead.levelUp(1);
-					}
-					else if(fruit.getClass() == Apple.class) {
-						Polygon p =(Polygon)((Apple)fruit);
-						if(p.getPoints().length == 5) {
-							elem.snakeHead.levelUp(2);	
-						}
-						else {
+					} else if (fruit.getClass() == Apple.class) {
+						Polygon p = (Polygon) ((Apple) fruit);
+						if (p.getPoints().length == 5) {
+							elem.snakeHead.levelUp(2);
+						} else {
 							elem.snakeHead.levelUp(3);
 						}
 					}
@@ -222,18 +211,17 @@ class Snake extends Game {
 
 			// Pick fruit color based on fruit type
 			if (fruit instanceof Apple) {
-				Polygon p =(Polygon)((Apple)fruit);
-				if(p.getPoints().length == 5) {
+				Polygon p = (Polygon) ((Apple) fruit);
+				if (p.getPoints().length == 5) {
 					brush.setColor(Color.pink);
-				}
-				else {
+				} else {
 					brush.setColor(Color.red);
 				}
-			} else if (fruit instanceof Orange){
+			} else if (fruit instanceof Orange) {
 				brush.setColor(Color.orange);
 			}
 			// Draw fruit
-			System.out.println(((Polygon)fruit).position.x + ", " + ((Polygon)fruit).position.y);
+			System.out.println(((Polygon) fruit).position.x + ", " + ((Polygon) fruit).position.y);
 			fruit.paint(brush);
 		}
 
